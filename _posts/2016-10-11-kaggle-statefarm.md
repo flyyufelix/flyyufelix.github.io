@@ -11,7 +11,7 @@ I learned a lot in this competition and would love to share my approach and more
 ### Problem Statement
 We are given a dataset of driver images taken by a camera mounted inside the car. Our goal is to predict the likelihood of what the driver is doing in each picture. There are 10 categories - safe driving, texting - right, talking on the phone - right, texting - left, talking on the phone - left, operating the radio, drinking, reaching behind, hair and makeup, talking to passenger. We are given 22,424 training samples and 79,726 testing samples. For each test image, our model has to assign a probability value on each of the 10 driving states. 
 
-![Driver Images](/img/kaggle_statefarm_cover_img.png)
+![Driver Images](/img/drivers.png)
 
 The metric is [multi-class cross entropy loss](https://www.kaggle.com/wiki/LogarithmicLoss){:target="_blank"} (also called logarithmic loss). 
 
