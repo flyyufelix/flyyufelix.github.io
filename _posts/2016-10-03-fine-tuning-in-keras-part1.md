@@ -6,7 +6,7 @@ title: A Comprehensive guide to Fine-tuning Deep Learning Models in Keras (Part 
 
 In this post, I am going to give a comprehensive overview on the practice of fine-tuning, which is a common practice in Deep Learning. 
 
-Drawing from my own experience, I will list out the rationale behind fine-tuning, the techniques involved, and last and most important of all, detailed step-by-step guide of how to fine-tune Convolutional Neural Network models in Keras in Part II of this post. 
+Drawing from my own experience, I will list out the rationale behind fine-tuning, the techniques involved, and last and most important of all, detailed step-by-step guide of how to fine-tune Convolutional Neural Network models in Keras in [Part II](/2016/10/08/fine-tuning-in-keras-part2.html){:target="_blank"} of this post. 
 
 ### First, why do we fine-tune Models? 
 When we are given a Deep Learning task, say, one that involves training a Convolutional Neural Network (Covnet) on a dataset of images, our first instinct would be to train the network from scratch. However, in practice, deep neural networks like Covnet has a huge number of parameters, often in the range of millions. Training a Covnet on a small dataset (one that is smaller than the number of parameters) greatly affects the Covnet’s ability to generalize, often result in overfitting. 
@@ -61,5 +61,5 @@ The best way to find those pre-trained models is to google your specific model a
 
 
 ### Fine-tuning in Keras
-In Part II of this post, I will give a detailed step-by-step guide on how to go about implementing fine-tuning on popular models VGG, Inception V3, and ResNet in Keras. 
+In [Part II](/2016/10/08/fine-tuning-in-keras-part2.html){:target="_blank"} of this post, I will give a detailed step-by-step guide on how to go about implementing fine-tuning on popular models VGG, Inception V3, and ResNet in Keras. 
 
