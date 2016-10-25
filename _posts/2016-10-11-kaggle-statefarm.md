@@ -11,12 +11,16 @@ I learned a lot in this competition and would love to share my approach and more
 ### Problem Statement
 We are given a dataset of driver images taken by a camera mounted inside the car. Our goal is to predict the likelihood of what the driver is doing in each picture. There are 10 categories - safe driving, texting - right, talking on the phone - right, texting - left, talking on the phone - left, operating the radio, drinking, reaching behind, hair and makeup, talking to passenger. We are given 22,424 training samples and 79,726 testing samples. For each test image, our model has to assign a probability value on each of the 10 driving states. 
 
-![Driver Images](/img/drivers.png)
+Below are examples of training images with their corresponding labels:
+
+![Driver Images](/img/drivers_type.png){:width="800px"}
 
 The metric is [multi-class cross entropy loss](https://www.kaggle.com/wiki/LogarithmicLoss){:target="_blank"} (also called logarithmic loss). 
 
 ### Our Approach
 We set up a typical deep learning pipeline which includes data preprocessing, data augmentation, fine-tuning various pre-trained convnets models, and finally ensemble those models to obtain our final prediction for submission.
+
+![Solution Pipeline](/img/statefarm_solution.png){:height="300px"}
 
 **Data Preprocessing.** We downsample the images from 640x480 to 224x224 so that the dimension is compatible to that required by the pre-trained Convnets we use for fine-tuning. Downsample input images is a common practice to ensure the model and the corresponding training samples (from a single mini-batch) can fit into the memory of the graphics card.  
 
@@ -34,10 +38,14 @@ For a more comprehensive treatment of fine-tuning on pre-trained Deep Learning M
 
 **Test Data Augmentation.** During test time, we augment each test image by random rotation and translation, and average the prediction of each transformed version of the test image to obtain the final prediction on that image. This further improve our leaderboard score.    
 
-**Model Ensemble.** As with other Kaggle or predictive analytics competitions, the final submission is usually a blend of 2 or more different base models. We ensemble different models by weighted arithmetic mean. Our final prediction is the weighted average of several VGG models. We did not include Inception model GoogLeNet in the blend since it got us a worse public leaderboard score. 
+**Model Ensemble.** As with other Kaggle or predictive analytics competitions, the final submission is usually a blend of 2 or more different base models. We ensemble different models by weighted arithmetic mean. Our final prediction is the weighted average of 4 VGG models. We did not include Inception model GoogLeNet in the blend since it got us a worse public leaderboard score. 
+
+![Model Ensemble](/img/model_blend.png)
 
 ### Final Result
-At the end of the competition, our team achieved a final ranking of 47th out of 1450 teams, which placed us within the top 4% of the field and earned us a [silver medal](https://www.kaggle.com/progression){:target="_blank"}. However, we experienced a big slip up from 17th place in the public leaderboard to 47th place in final private leaderboard. Obviously we overfitted our predictions to the public leaderboard. 
+At the end of the competition, our team achieved a final ranking of 17th out of 1450 (Top 2%) in the public leaderboard and 47th out of 1450 (Top 4%) in the private leaderboard, which is good enough to earn us a [silver medal](https://www.kaggle.com/progression){:target="_blank"}. However, we experienced a big slip up from the public leaderboard to the private leaderboard. Obviously we overfitted our predictions to the public leaderboard. 
+
+![Final Rank](/img/final_rank.png)
 
 ### Lessons Learned 
 One of the great things about Kaggle is the strength of the community. For each competition, there is a separate forum where participating teams share scripts and bounce ideas off each other. The forum are usually very active and most participants are willing to share their insights unselfishly. 
