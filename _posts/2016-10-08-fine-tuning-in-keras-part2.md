@@ -5,19 +5,19 @@ title: A Comprehensive guide to Fine-tuning Deep Learning Models in Keras (Part 
 ---
 This is Part II of a 2 part series that cover fine-tuning deep learning models in Keras. [Part I](/2016/10/03/fine-tuning-in-keras-part1.html){:target="_blank"} states the motivation and rationale behind fine-tuning and gives a brief introduction on the common practices and techniques. This post will give a detailed step-by-step guide on how to go about implementing fine-tuning on popular models *VGG*, *Inception*, and *ResNet* in Keras. 
 
-### Why do we pick Keras?
+## Why do we pick Keras?
 [Keras](https://keras.io/){:target="_blank"} is a simple to use neural network library built on top of Theano or TensorFlow that allows developers to prototype ideas very quickly. Unless you are doing some cutting-edge research that involves customizing a completely novel neural architecture with different activation mechanism, Keras provides all the building blocks you need to build reasonably sophisticated neural networks. 
 
 It also comes with a great documentation and tons of online resources. 
 
 
-### Note on Hardware
+## Note on Hardware
 
 I would strongly suggest getting a GPU to do the heavy computation involved in Covnet training. The speed difference is very substantial. We are talking about a matter of hours with a GPU versus a matter of days with a CPU. 
 
 I would recommend GTX 980Ti or a slightly expensive GTX 1080 which cost around $600 bucks. 
 
-### Fine-tuning in Keras
+## Fine-tuning in Keras
 I have implemented starter scripts for fine-tuning convnets in Keras. The scripts are hosted in [this github page](https://github.com/flyyufelix/cnn_finetune){:target="_blank"}. Implementations of VGG16, VGG19, GoogLeNet, Inception-V3, and ResNet50 are included. With that, you can customize the scripts for your own fine-tuning task. 
 
 Below is a detailed walkthrough of how to fine-tune **VGG16** and **Inception-V3** models using the scripts.  
@@ -128,7 +128,7 @@ model = inception_v3_model(img_rows, img_cols, channel, num_class)
 
 That’s it for Inception-V3. Starting script for other models such as **VGG19**, **GoogleLeNet**, and **ResNet** can be found [here](https://github.com/flyyufelix/cnn_finetune){:target="_blank"}.
 
-### Fine-tuned Networks in Action
+## Fine-tuned Networks in Action
 If you are a Deep Learning or Computer Vision practitioner, most likely you have already tried fine-tuning pre-trained network for your own classification problem before. 
 
 To me, I came across this interesting [Kaggle Competition](https://www.kaggle.com/c/state-farm-distracted-driver-detection){:target="_blank"} which requires candidates to identify distracted drivers through analyzing in-car camera images. This is a good opportunity for me to try out fine-tuning in Keras. 

@@ -8,7 +8,7 @@ I recently took part in the [Kaggle State Farm Distracted Driver Competition](ht
 
 I learned a lot in this competition and would love to share my approach and more importantly the lessons I learned. 
 
-### Problem Statement
+## Problem Statement
 We are given a dataset of driver images taken by a camera mounted inside the car. Our goal is to predict the likelihood of what the driver is doing in each picture. There are 10 categories - safe driving, texting - right, talking on the phone - right, texting - left, talking on the phone - left, operating the radio, drinking, reaching behind, hair and makeup, talking to passenger. We are given 22,424 training samples and 79,726 testing samples. For each test image, our model has to assign a probability value on each of the 10 driving states. 
 
 Below are examples of training images with their corresponding labels:
@@ -17,7 +17,7 @@ Below are examples of training images with their corresponding labels:
 
 The metric is [multi-class cross entropy loss](https://www.kaggle.com/wiki/LogarithmicLoss){:target="_blank"} (also called logarithmic loss). 
 
-### Our Approach
+## Our Approach
 We set up a typical deep learning pipeline which includes data preprocessing, data augmentation, fine-tuning various pre-trained convnets models, and finally ensemble those models to obtain our final prediction for submission.
 
 ![Solution Pipeline](/img/statefarm_solution.png){:height="300px"}
@@ -42,7 +42,7 @@ For a more comprehensive treatment of fine-tuning on pre-trained Deep Learning M
 
 ![Model Ensemble](/img/model_blend.png)
 
-### Final Result
+## Final Result
 At the end of the competition, our team achieved a final ranking of 17th out of 1450 (Top 2%) in the public leaderboard and 47th out of 1450 (Top 4%) in the private leaderboard, which is good enough to earn us a [silver medal](https://www.kaggle.com/progression){:target="_blank"}. However, we experienced a big slip up from the public leaderboard to the private leaderboard. Obviously we overfitted our predictions to the public leaderboard. 
 
 ![Final Rank](/img/final_rank.png)
