@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Transfer Caffe weights to Keras for ResNet-152
+title: Convert Caffe weights to Keras for ResNet-152
 #feature-img: "img/sample_feature_img.png"
 ---
 
