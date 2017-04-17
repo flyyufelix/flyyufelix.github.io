@@ -2,6 +2,7 @@
 layout: post
 title: A Comprehensive guide to Fine-tuning Deep Learning Models in Keras (Part I)
 #feature-img: "img/sample_feature_img.png"
+comments: true
 ---
 
 In this post, I am going to give a comprehensive overview on the practice of fine-tuning, which is a common practice in Deep Learning. 
@@ -63,3 +64,30 @@ The best way to find those pre-trained models is to google your specific model a
 ## Fine-tuning in Keras
 In [Part II](/2016/10/08/fine-tuning-in-keras-part2.html){:target="_blank"} of this post, I will give a detailed step-by-step guide on how to go about implementing fine-tuning on popular models VGG, Inception V3, and ResNet in Keras. 
 
+If you have any questions or thoughts feel free to leave a comment below.
+
+You can also follow me on Twitter at @flyyufelix. 
+<br />
+
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://flyyufelix-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}

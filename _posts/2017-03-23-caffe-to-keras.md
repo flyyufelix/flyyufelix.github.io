@@ -2,6 +2,7 @@
 layout: post
 title: Convert Caffe weights to Keras for ResNet-152
 #feature-img: "img/sample_feature_img.png"
+comments: true
 ---
 
 ## Motivation
@@ -95,5 +96,30 @@ The ResNet-152 implementation with pre-trained weights can be found [here](https
 
 Hopefully this tutorial gives you some insights on how to convert Caffe models to Keras. For those of you who just want to have an off-the-shelf pre-trained ResNet-152 to work with, feel free to use my implementation. Having go through all the troubles of debugging myself, I hope my little contribution will spare many of your time and frustration!
 
+If you have any questions or thoughts feel free to leave a comment below.
 
+You can also follow me on Twitter at @flyyufelix. 
+<br />
 
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://flyyufelix-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}

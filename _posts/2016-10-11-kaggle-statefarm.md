@@ -2,6 +2,7 @@
 layout: post
 title: Lessons learned from Kaggle StateFarm Challenge
 #feature-img: "img/sample_feature_img.png"
+comments: true
 ---
 
 I recently took part in the [Kaggle State Farm Distracted Driver Competition](https://www.kaggle.com/c/state-farm-distracted-driver-detection){:target="_blank"}. This is an image recognition problem which deep learning is particular good at solving. Hence by taking part in this competition I got the perfect opportunity to acquaint myself with the deep learning modeling pipeline, which typically entails data preprocessing, data augmentation, train/fine-tune Convolutional Neural Networks, and ensemble multiple models to obtain the final output. 
@@ -81,5 +82,30 @@ This is my first serious attempt in Deep Learning and I am extremely grateful fo
 
 I think the contribution of the Kaggle competition to Deep Learning is definitely not in the modelling part. None of the teams invent new neural architectures for the sake of this competition. It’s more on the innovative tricks, hacks and techniques deployed in the data preprocessing and model ensembling parts, for example, VGG-CAM inference, manual cropping and bounding box regression, novel color jittering methods, etc, that worked well in practice but are seldom talked about or being completely overlooked by the academic community. 
 
+If you have any questions or thoughts feel free to leave a comment below.
 
+You can also follow me on Twitter at @flyyufelix. 
+<br />
 
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+  this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://flyyufelix-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}
