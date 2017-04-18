@@ -5,7 +5,7 @@ title: Detect and Classify Species of Fish from Fishing Vessels with Modern Obje
 comments: true
 ---
 
-I recently took part in the [Nature Conservancy Fisheries Monitoring Competition](https://www.kaggle.com/c/the-nature-conservancy-fisheries-monitoring){:target="_blank"} organized by Kaggle. Of all the image related competitions I took part before, this is by far the toughest but most interesting competition in many regards. I managed to finish in the 3rd place in public leaderboard but dropped to 11th place in the private leaderboard. I will go over my solution and lessons learned in detail and hopefully they will be useful to someone who come across with similar problems. 
+I recently took part in the [Nature Conservancy Fisheries Monitoring Competition](https://www.kaggle.com/c/the-nature-conservancy-fisheries-monitoring){:target="_blank"} organized by Kaggle. Of all the image related competitions I took part before, this is by far the toughest but most interesting competition in many regards. I managed to finish in the 3rd place in public leaderboard but dropped to 9th place in the private leaderboard. I will go over my solution and lessons learned in detail and hopefully they will be useful to someone who come across with similar problems. 
 <br /> 
 <br /> 
 
