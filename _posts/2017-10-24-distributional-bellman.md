@@ -9,7 +9,7 @@ I got the chance to read this [paper](https://arxiv.org/pdf/1707.06887.pdf){:tar
 
 ### Q Learning Recap
 
-To understand Distributional Bellman, we first have to acquire a basic understanding of **Q Learning**. For those of you are are not familiar with Q Learning, you can refer to my [previous blog](/2017/10/12/dqn-vs-pg.html){:target="_blank"} for more information on the subject. To recap, the objective of Q Learning is to approximate the Q function, which is the expected value of the sum future rewards by following policy $$\pi$$. 
+To understand Distributional Bellman, we first have to acquire a basic understanding of **Q Learning**. For those of you are are not familiar with Q Learning, you can refer to my [previous blog](/2017/10/12/dqn-vs-pg.html){:target="_blank"} for more information on the subject. To recap, the objective of Q Learning is to approximate the Q function, which is the expected value of the total future rewards by following policy $$\pi$$. 
 
 $$ Q^{\pi}(s,a) = E[R_t]$$
 
@@ -17,7 +17,7 @@ where $$\pi$$ refers to the policy, $$s$$ represents the state input and $$a$$ i
 
 $$R_t = r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + ... $$
 
-At the center of Q Learning is what is known as **Bellman equation**. Let $$\pi^*$$ represents the optimal policy. We sample a transition from the environment and obtain <$$s$$, $$a$$, $$r$$, $$s^\prime$$>, where $$s^\prime$$ is the next state. The Bellman equation is a recursive expression that relates the Q function of consecutive time steps.
+At the center of Q Learning is what is known as **Bellman equation**. Let $$\pi^*$$ represents the optimal policy. We sample a transition from the environment and obtain <$$s$$, $$a$$, $$r$$, $$s^\prime$$>, where $$s^\prime$$ is the next state. The Bellman equation is a recursive expression that relates the Q functions of consecutive time steps.
 
 $$ Q^{\pi^*}(s,a) = r + \gamma\max_{a^\prime} Q(s^\prime,a^\prime)$$
 
@@ -35,17 +35,17 @@ That's all we need to know about Q Learning. Let's get to Distributional Bellman
 
 The core idea of Distributional Bellman is to ask the following questions. If we can model the Distribution of the total future rewards, why restrict ourselves to the expected value (i.e. Q function)? There are several benefits to learning an approximate distribution rather than its approximate expectation. 
 
-Consider a commuter who drives to work every morning. We want to model the total commute time of the trip. Under normal circumstances, the traffic are cleared and the trip would take around 30 minutes. However, traffic accidents do occur once in a while (e.g. car crashes, break down in the middle of the highway, etc), and if that happens, it will usually cause the traffic to be at a standstill and add an hour to the trip. Let’s say traffic accident like that happens once every 5 days on average. If we uses expected value to model the commute time of the trip, the expected commute time will be 30 + 60 / 5 = **42 minutes**. However, we know such expected figure is not so meaningful, since it vastly overestimates the commute time most of the time, and vastly underestimates the commute time when traffic accidents do occur. If instead we treat the total commute time as a random variable and model its distribution, it should look like this:
+Consider a commuter who drives to work every morning. We want to model the total commute time of the trip. Under normal circumstances, the traffic are cleared and the trip would take around 30 minutes. However, traffic accidents do occur once in a while (e.g. car crashes, break down in the middle of the highway, etc), and if that happens, it will usually cause the traffic to be at a standstill and add an hour to the trip (i.e. 90 minutes). Let’s say traffic accident like that happens once every 5 days on average. If we use expected value to model the commute time of the trip, the expected commute time will be 30 + 60 / 5 = **42 minutes**. However, we know such expected figure is not so meaningful, since it vastly overestimates the commute time most of the time, and vastly underestimates the commute time when traffic accidents do occur. If instead we treat the total commute time as a random variable and model its distribution, it should look like this:
 
 ![Commute Time Distribution](/img/commute_time_distribution.png){:width="500"}
 
-Notice that the distribution of commute time is **bimodal**. Most of the time the trip would take 30 minutes on average, however, if traffic accident occurs, the commute time would take 90 minutes on average. Given the full picture of the distribution, next time when we head out to work, it’d better to look up the traffic situation on the highway. If traffic accident is reported, we can choose to bike to work which would take around 60 minutes, which could save us 30 minutes!
+Notice that the distribution of commute time is **bimodal**. Most of the time the trip would take 30 minutes on average, however, if traffic accident occurs, the commute time would take 90 minutes on average. Given the full picture of the distribution, next time when we head out to work, we’d better look up the traffic situation on the highway. If traffic accident is reported, we can choose to bike to work which would take around 60 minutes, which could save us 30 minutes!
 
 #### Choosing Action based on Distribution instead of Expected Value
 
 In reinforcement learning, we use the Bellman equation to approximate the expected value of future rewards. As illustrated in the commute time example above, if the environment is stochastic in nature (occurrence of traffic accidents) and the future rewards follow **multimodal distribution** (bimodally distributed commute time), choosing actions based on expected value may lead to suboptimal outcome. In the example above, if we realize there is a traffic accident and it will likely take 90 minutes to get to office, the optimal action would be to bike even though the expected commute time of biking is 60 minutes which is larger than the expected commute time of driving (42 minutes).
 
-Another obvious benefit of modeling distribution instead of expected value is that sometimes even though the expected future rewards of 2 actions are identical, their **variances might be very different**. If we are risk averse, it would preferable to choose the action with smaller variance. Using the commute time example again, if we have 2 actions to choose from: driving or taking the train, both actions have the same expected commute time (i.e. 42 minutes), but taking the train has smaller variance since it does not affected by unexpected traffic conditions. Most people would prefer taking the train over driving. 
+Another obvious benefit of modeling distribution instead of expected value is that sometimes even though the expected future rewards of 2 actions are identical, their **variances might be very different**. If we are risk averse, it would be preferable to choose the action with smaller variance. Using the commute time example again, if we have 2 actions to choose from: driving or taking the train, both actions have the same expected commute time (i.e. 42 minutes), but taking the train has smaller variance since it does not get affected by unexpected traffic conditions. Most people would prefer taking the train over driving. 
 
 #### Formulation of Distribution Bellman 
 
@@ -72,7 +72,7 @@ We then **scale** the next state distribution with $$\gamma$$ and **shift** the 
 
 Last of all, we **“project”** the target distribution $$Z^\prime$$ to the supports of the current distribution $$Z$$ simply by minimizing the cross entropy loss between $$Z$$ and $$Z^\prime$$. 
 
-Intuitively, we can view this as an **image classification problem**. The inputs to the model can be screen pixels sampled from game play (e.g. Atari Pong, Breakout, etc). Each discrete support of $$Z$$ represents a unique “category”. During the update step, the probability of each “category” of $$Z^\prime$$ will serve as “fake ground truth labels” to guide the training. The “fake labels” are analogous to the binary ground truth labels we use for classification problems.
+Intuitively, we can view this as an **image classification problem**. The inputs to the model can be screen pixels sampled from game play (e.g. Atari Pong, Breakout, etc). Each discrete support of $$Z$$ represents a unique “category”. During the update step, the probability mass of each “category” of $$Z^\prime$$ will serve as “fake ground truth labels” to guide the training. The “fake labels” are analogous to the binary ground truth labels we use for classification problems.
 
 Now it’s time to go through the meat of this article, which is a feasible algorithm to implement Distributional Bellman called **C51**. 
 
@@ -107,7 +107,7 @@ cnn_feature = Flatten()(cnn_feature)
 cnn_feature = Dense(512, activation='relu')(cnn_feature)
 {% endhighlight %}
 
-The neural network outputs 3 sets of value distribution predictions, one for each action (i.e. left, right, shoot). Each set of prediction is a softmax layer with 51 units.   
+The neural network outputs 3 sets of value distribution predictions, one for each action (i.e. Turn Left, Turn Right, Shoot). Each set of prediction is a softmax layer with 51 units.   
 
 {% highlight python %}
 distribution_list = []
@@ -115,7 +115,7 @@ for i in range(action_size):
     distribution_list.append(Dense(num_atoms, activation='softmax')(cnn_feature))
 {% endhighlight %}
 
-For our problem the `action_size` is 3 (i.e. left, right, shoot) and `num_atoms` is the number of discrete values (i.e. 51).
+For our problem the `action_size` is 3 (i.e. Turn Left, Turn Right, Shoot) and `num_atoms` is the number of discrete values (i.e. 51).
 
 Most of the logic of the algorithm is contained in the update step. First we sample a minibatch of sample trajectories from the [Experience Replay](https://datascience.stackexchange.com/questions/20535/understanding-experience-replay-in-reinforcement-learning){:target="_blank"} buffer and initialize the corresponding states, reward, and targets variables:
 
@@ -144,7 +144,7 @@ Next, we carry out a forward pass to get the next state distributions.
 z = self.model.predict(next_states)
 {% endhighlight %}
 
-Notice that the model outputs 3 set of value distributions, one for each action. We really only need the one with the largest expected value to perform the update (similar to Q Learning). 
+Notice that the model outputs 3 set of value distributions, one for each action. We really only need the one with the largest expected value to perform the update (similar to $$max_{a^\prime} Q(s^\prime,a^\prime)$$ in Q Learning). 
 
 {% highlight python %}
 optimal_action_idxs = []
@@ -180,7 +180,7 @@ Last, we call Keras `fit()` function to minimize the cross entropy loss with gra
 loss = self.model.fit(state_inputs, m_prob, batch_size=self.batch_size, nb_epoch=1, verbose=0)
 {% endhighlight %}
 
-That’s it! I strongly encourage you to try out [the code] in your favorite environment. Feel free to [reach out to me](/about){:target="_blank"} if you have trouble getting to code to work.
+That’s it! I strongly encourage you to try out [the code](https://github.com/flyyufelix/C51-DDQN-Keras){:target="_blank"} in your favorite environment. Feel free to [reach out to me](/about){:target="_blank"} if you have trouble getting to code to work.
 
 ### Experiment
 
@@ -194,9 +194,9 @@ Here is the performance chart of C51 and DDQN
  
 ![C51 Chart](/img/c51_chart.png){:width="500"}
 
-The first thing we notice is that C51 does work! A random agent can only get an average kill count of 1 by firing bullets randomly. In contrast, C51 was able to converge to a good policy pretty quickly and already reached an average 7 kills in the first 1000 episodes. Even though learning started to slow down after episode 1000, we still see a steady and monotonic improvement over rest of the 14,000 episodes.
+The first thing we notice is that C51 does work! A random agent can only get an average kill count of 1 by firing bullets randomly. In contrast, C51 was able to converge to a good policy pretty quickly and already reached an average kills of 7 in the first 1000 episodes. Even though learning started to slow down after episode 1000, we still see a steady and monotonic improvement over the remaining 14,000 episodes.
 
-In addition to the performance chart, it is worthwhile to **visually inspect the value distributions** learned by C51 to get a deeper understanding of how C51 works.
+In addition to the performance chart, it is worthwhile to **visually inspect the value distributions** learned by C51 to gain a deeper understanding of how C51 works.
 <br />
 <br />
 
@@ -208,7 +208,7 @@ In addition to the performance chart, it is worthwhile to **visually inspect the
 
 ![Z Visual 2](/img/z_visual_2.png){:width="800"}
 
-**Figure 2**: The episode progresses. A pink monster attacks from the left. Ammo starts to run out (5 left) so there is not much room to fire and miss the target. This is reflected by the "leftward shift" of the value distribution that belongs to shooting (bottom distribution). The decision to shoot and miss will certain result in 1 fewer kills.
+**Figure 2**: The episode progresses. A pink monster attacks from the left. Ammo starts to run out (5 left) so there is not much room to fire and miss the target. This is reflected by the "leftward shift" of the value distribution that belongs to shooting (bottom distribution). The decision to shoot and miss will certain result in 1 fewer kill.
 
 <br />
 
@@ -216,13 +216,13 @@ In addition to the performance chart, it is worthwhile to **visually inspect the
 
 **Figure 3**: Towards the end of episode. Ammo runs out. Value distributions collpase to zero (actually slight negative since there is a negative reward at the end of the episode for getting killed)
 
-It’s glad to see that the value distributions learned by C51 make a lot of sense and are highly interpretable. I strongly encourage you to plot out the distribution and check if they make sense for your particular environment, even if the algorithm works.
+It’s glad to see that the value distributions learned by C51 make sense and are highly interpretable. I strongly encourage you to plot out the distribution and check if they make sense for your particular environment, even if the algorithm works.
 
 #### Comparison with DDQN 
 
-Now we answer our second question, which is how C51 perform compared to DDQN. We can see from the performance chart that C51 has a noticeable lead in average kills. Due to their similarly in nature (i.e. both rely on Bellman updates), their overall convergence rates and score variances are very similar. Both algorithms showcased impressive convergence rate in the first 1000 episodes, DDQN even outperformed C51 briefly from episode 1000 to 3000. However, after episode 3000, C51 caught up and surpassed DDQN and have maintained that lead (around 1 to 2 average kills) for the remaining 1200 episodes. In fact, the gain in performance for C51 over DDQN is not as big as I would have expected, considering that the paper reported a doubling of performance on the Atari Learning Environment (ALE). Perhaps VizDoom Defend the Center is not the ideal environment to showcase to true power of Distributional Bellman. 
+Now we answer our second question, which is how C51 stacks up against DDQN. We can see from the performance chart that C51 has a noticeable lead in average kills overall. Due to their similarly in nature (i.e. both rely on Bellman updates), their overall convergence rates and score variances are very similar. Both algorithms showed impressive convergence rate in the first 1000 episodes, DDQN even outperformed C51 briefly from episode 1000 to 3000. However, after episode 3000, C51 caught up and surpassed DDQN and have maintained that lead (around 1 to 2 average kills) for the remaining 1200 episodes. In fact, the gain in performance for C51 over DDQN is not as big as I would have expected, considering that the paper reported a doubling of performance on the Atari Learning Environment (ALE). Perhaps VizDoom Defend the Center is not the ideal environment to showcase the true power of Distributional Bellman. 
 
 ### Conclusion
 
-In my opinion, Distributional Bellman is a very interesting and theoretically sound way to model reinforcement learning problem that deserves more attention. As mentioned in the article and testified by many experiements, there are many benefits of modeling value distribution instead of the expected value. There is also a simple and feasible implementation C51 that consistently outperforms DDQN in both Atari and VizDoom environments. I would love to see higher adoption of distributional methods. Last of all, my Keras implementation of C51 can be found in my [github](https://github.com/flyyufelix/C51-DDQN-Keras){:target="_blank"}. Feel free to use it for your own problem. 
+In my opinion, Distributional Bellman is a very interesting and theoretically sound way to model reinforcement learning problem. As mentioned in the article and testified by many experiements, there are many benefits of modeling value distribution instead of the expected value. There is also a simple and feasible implementation C51 that consistently outperforms DDQN in both Atari and VizDoom environments. I would love to see higher adoption of distributional methods. Last of all, my Keras implementation of C51 can be found in my [github](https://github.com/flyyufelix/C51-DDQN-Keras){:target="_blank"}. Feel free to use it for your own problem. 
 
