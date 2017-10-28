@@ -84,7 +84,7 @@ I think the contribution of the Kaggle competition to Deep Learning is definitel
 
 If you have any questions or thoughts feel free to leave a comment below.
 
-You can also follow me on Twitter at @flyyufelix. 
+You can also follow me on Twitter at [@flyyufelix](https://twitter.com/flyyufelix){:target="_blank"}. 
 <br />
 
 {% if page.comments %}
