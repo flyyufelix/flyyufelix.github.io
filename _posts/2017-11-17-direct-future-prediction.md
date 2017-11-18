@@ -5,8 +5,8 @@ title: Direct Future Prediction - Supervised Learning for Reinforcement Learning
 comments: true
 ---
 
-![gif](/img/medkit_pickup.gif){:width="350"}&nbsp;&nbsp;&nbsp;&nbsp;
-![gif](/img/poison_pickup.gif){:width="350"}<br />
+![gif](/img/medkit_pickup.gif){:width="400px"}&nbsp;&nbsp;&nbsp;&nbsp;
+![gif](/img/poison_pickup.gif){:width="400px"}<br />
 Instruct DFP agent to **change objective** (at test time) from pick up **Health Packs** (Left) to pick up **Poision Jars** (Right). The ability to pursue complex goals at test time is one of the major benefits of DFP.
 
 <br />
@@ -80,7 +80,7 @@ $$ j = J(s,m,g) = [hS(s), M(m), G(g)] $$
 
 Here is the architecture diagram:
 
-![DFP architecture](/img/dfp_architecture.png){:width="800"}
+![DFP architecture](/img/dfp_architecture.png){:width="800px"}
 
 Notice that the model is split into 2 streams, the expectation stream $$E(j)$$ and the Action stream $$A(j)$$. The decision of using 2 separate streams is based on the [dueling architecture](https://arxiv.org/abs/1511.06581){:target="_blank"} introduced by DeepMind. Empirally, It usually leads to better performance empirically.
 
@@ -96,7 +96,7 @@ Hopefully by now you have a good understanding of DFP, how and why it works, and
 
 I implemented DFP on the [Health Gathering](https://github.com/mwydmuch/ViZDoom/tree/master/scenarios){:target="_blank"} environment provided by VizDoom. It is a 3D partially observable environment. The objective of the agent is to survive the longest time as possible. At each time step, the agent’s health decreases such that in order to live longer, it has to locate and pick up health packs scattered across different parts of the map. At the same time, the agent also needs to avoid running into poison jars which will take away health. 
 
-![gif](/img/medkit_pickup.gif){:width="450"}
+![gif](/img/medkit_pickup.gif){:width="450px"}
 
 The environment provides health level as the only measurement. I augmented the measurement to also include number of health packs and poison jars picked up by the agent by inferring pick up events from the change in health level in successive time steps. Hence, the resulting measurement vector for each time step consists of 3 elements **[Health, HealthPacks, Poison]**.
 
@@ -223,11 +223,11 @@ Empirically, I found that the measurement and goal input modules to be not so us
 
 40,000 episodes of DFP is run on the Health Gathering scenario. Here is a video of DFP agent playing an episode. 
 
-![gif](/img/medkit_pickup.gif){:width="450"}
+![gif](/img/medkit_pickup.gif){:width="450px"}
 
 For comparison sake, I also ran the same number of episodes using [Double DQN](https://arxiv.org/abs/1509.06461){:target="_blank"} (DDQN). A scalar reward of **+1** is given to the agent when it picks up Health Packs, and a negative penalty of **-100** for dying. Average survival time (moving average over 50 episodes) is used as the metric for performance. Below is the performance chart. 
 
-![DFP Performance Chart 1](/img/dfp_chart1.png){:width="600"}
+![DFP Performance Chart 1](/img/dfp_chart1.png){:width="600px"}
 
 Notice that DFP converged very quickly in the first few hundred episodes. DDQN slowly caught up and its performance was almost on par with DFP at around episode 20,000, before it broke down completely. In contrast, DFP performance remained very stable throughout training. 
 
@@ -237,7 +237,7 @@ As discussed above, **DFP excels in environments where stream of rich and tempor
 
 Recall that in our implementation we have **[Health, HealthPacks, Poison]** as the measurements. HealthPacks and Poison are derivative measurements from Health (i.e. HealthPacks **+1** when Health increases). What if right now we take away HealthPacks and Poison and use only **[Health]** as our measurement. Here is our result.
 
-![DFP Performance Chart 1](/img/dfp_chart2.png){:width="600"}
+![DFP Performance Chart 1](/img/dfp_chart2.png){:width="600px"}
 
 This is quite surprising and counterintuitive. The performance of DFP deteriorated by 50% if we just used **[Health]** as our only measurement (blue line), even though HealthPacks and Poisons are derived from the change in Health. I guess there is a beneficial effect by allowing the model to generate a richer set of predictions, similar to the way auxiliary tasks enhance performance of deep learning vision classifier. In fact, Google recently published a [paper](https://arxiv.org/abs/1611.05397){:target="_blank"} showing that addition of unsupervised auxiliary tasks leads to significant improvement over previous state of the art methods on Atari. 
 
@@ -249,7 +249,7 @@ $$ U = 0 \times Health + 0 \times HealthPacks + 1 \times Poison $$
 
 Which is to encourage the agent to pick actions that maximize the pick up of Poison Jars. Here is the video of the suicidal DFP agent playing an episode
 
-![gif](/img/poison_pickup.gif){:width="450"}
+![gif](/img/poison_pickup.gif){:width="450px"}
 
 Notice that the agent did not pick up any healthpacks but went directly for Poison instead! 
 
