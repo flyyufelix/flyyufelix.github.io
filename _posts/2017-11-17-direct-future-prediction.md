@@ -5,8 +5,8 @@ title: Direct Future Prediction - Supervised Learning for Reinforcement Learning
 comments: true
 ---
 
-![gif](/img/medkit_pickup.gif){:width="400"}&nbsp;&nbsp;&nbsp;&nbsp;
-![gif](/img/poison_pickup.gif){:width="400"}<br />
+![gif](/img/medkit_pickup.gif){:width="350"}&nbsp;&nbsp;&nbsp;&nbsp;
+![gif](/img/poison_pickup.gif){:width="350"}<br />
 Instruct DFP agent to **change objective** (at test time) from pick up **Health Packs** (Left) to pick up **Poision Jars** (Right). The ability to pursue complex goals at test time is one of the major benefits of DFP.
 
 <br />
