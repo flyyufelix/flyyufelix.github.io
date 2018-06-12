@@ -5,7 +5,7 @@ title: Distributional Bellman and the C51 Algorithm
 comments: true
 ---
 
-I got the chance to read this [paper](https://arxiv.org/pdf/1707.06887.pdf){:target="_blank"} on Distributional Bellman published by DeepMind in July. Glossing over it the first time, my impression was that it would be an important paper, since the theory was sound and the experimental results were promising. However, it did not generate as much noise in the reinforcement learning community as I would have hoped. Nevertheless, as I thought the idea of Distributional Bellman was pretty neat, I decided to [implement](https://github.com/flyyufelix/C51-DDQN-Keras){:target="_blank"} it (in Keras) and test it out myself. I hope this article can help interested readers better understanding the core concepts of Distributional Bellman.    
+I got the chance to read this [paper](https://arxiv.org/pdf/1708.06887.pdf){:target="_blank"} on Distributional Bellman published by DeepMind in July. Glossing over it the first time, my impression was that it would be an important paper, since the theory was sound and the experimental results were promising. However, it did not generate as much noise in the reinforcement learning community as I would have hoped. Nevertheless, as I thought the idea of Distributional Bellman was pretty neat, I decided to [implement](https://github.com/flyyufelix/C51-DDQN-Keras){:target="_blank"} it (in Keras) and test it out myself. I hope this article can help interested readers better understanding the core concepts of Distributional Bellman.
 
 ### Q Learning Recap
 
