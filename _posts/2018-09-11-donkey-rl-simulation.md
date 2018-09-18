@@ -58,7 +58,7 @@ The resulting environment is compatible with OpenAI gym. We can interact with th
 env = gym.make("donkey-v0")
 state = env.reset()
 action = get_action()
-state, action, rewards, done = env.step(action)
+state, reward, done, info = env.step(action)
 {% endhighlight %}
 
 The environment also allows us to set **frame_skipping** and train the RL agent in **headless mode** (i.e. without Unity GUI). 
