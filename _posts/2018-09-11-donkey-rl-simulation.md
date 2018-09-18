@@ -58,7 +58,7 @@ The resulting environment is compatible with OpenAI gym. We can interact with th
 env = gym.make("donkey-v0")
 state = env.reset()
 action = get_action()
-state, action, rewards, next_state = env.step(action)
+state, action, rewards, done = env.step(action)
 {% endhighlight %}
 
 The environment also allows us to set **frame_skipping** and train the RL agent in **headless mode** (i.e. without Unity GUI). 
@@ -93,6 +93,8 @@ Reward is a function of **cross track error (cte)** which is provided by the Uni
 $$ reward = 1 - (abs(cte) / max\_cte) $$   
 
 Where $$max\_cte$$ is just a normalizing constant so that the reward is within the range of 0 and 1. We terminate the episode if $$abs(cte)$$ is larger than $$max\_cte$$. 
+
+\* **Edit**: I've found that using a reward function: $$reward = abs(prev\_cte) - abs(cte)$$ works even better. The resulting agent converged to a good policy in **~30 episodes** as compared to **100 episodes** for the reward above. 
 
 #### 4.3.5. Other notable variables
 
