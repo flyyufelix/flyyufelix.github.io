@@ -26,12 +26,22 @@ So why didn’t neural network work well and how we, as neural network and deep 
 
 For those of you who want to set up Nano on Donkey Car, feel free to check out [this excellent guide](https://medium.com/@feicheung2016/getting-started-with-jetson-nano-and-autonomous-donkey-car-d4f25bbd1c83){:target="_blank"} written by Fei. 
   
-Due to our busy schedule, we were only able to test out the new Jetson Nano car on a downsized track (60% of the full sized track) a few days before the Hackathon. However, it worked pretty well and we had high hope it would work well in the competition too. Until we finally arrived at the Hackathon venue and saw the actual track:
+Due to our busy schedule, we were only able to test out the new Jetson Nano car on a downsized track (60% of the full sized track) a few days before the Hackathon (Thanks [Hong Kong Society of Autonomous Model Vehicles](https://www.facebook.com/groups/samv.org){:target="_blank"} for providing us the venue). However, it worked pretty well and we had high hope it would work well in the competition too. 
+
+![PolyU Nano](/img/polyu_nano.gif){:width="250px"}
+<div style="font-size:16px;margin-top:-20px">Testing out our new Jetson Nano car at Polytechnic University, Hong Kong. </div><br />
+
+Until we finally arrived at the Hackathon venue and saw the actual track:
 
 ![Pixingmoving Track](/img/pixmoving_track.jpg){:width="380px"}
 <div style="font-size:16px;margin-top:-20px">Small-sized car race track at Pixmoving factory, Science City, Guiyang</div><br />
  
 Notice that the track was set up on a glossy surface overlayed with moving shadows and sunlight glares. In addition, the fact that there wasn’t a strong color contrast between the ground surface and the lane lines made the track even more challenging. The undesirable track conditions certainly made things so much tougher; however, we would have the rare opportunity to truly test out the robustness of neural network methods and see how far it could possibly go.
+
+**Funny side note**: At one point Fei suggested putting polarised lenses on Donkey Car to filter out the sunlight glares. We even tried to secure a pair of sunglasses to experiment the idea. However, we couldn't find one!
+
+![polarizer](/img/polarizer.jpeg){:width="380px"}
+<div style="font-size:16px;margin-top:-20px">Use polarised lenses to filter out the sunlight glare</div><br />
 
 ---
 ### 3. Our Initial Attempts to Improve the Model
