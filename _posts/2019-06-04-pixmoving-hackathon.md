@@ -154,9 +154,26 @@ Prior to the Hackathon, we were well aware of the fragileness of using end-to-en
 ![Label Box](/img/labelbox.png){:width="300px"}
 <div style="font-size:16px;margin-top:-20px">Manually label the dataset using Labelbox</div><br />
 
-One of the main reasons we decided to replace Raspberry Pi with Jetson Nano was so that we would have enough computing power to incorporate the segmentation model to the inference pipeline. Our plan was to first pass the raw RGB frame to the segmentation model and obtain a mask for the lane lines, then use the mask as input to the behavioral cloning neural network.
+One of the main reasons we decided to replace Raspberry Pi with Jetson Nano was so that we would have enough computing power to incorporate the segmentation model to the inference pipeline. **Our plan was to first pass the raw RGB frame to the segmentation model and obtain a mask for the lane lines, then use the mask as input to the behavioral cloning neural network.**
 
-We tried to train a U-Net segmentation model due to its simplicity and fast inference speed. However, for some reasons we could not get the model to work. Even though the training error converged, the output mask was not something we expected. Probably due to the fact that we have too few training data.
+Here is the list of our approaches in chronological order before we decided to stop as we did not have enough time:
+
+- Wrote unit test for data loader.
+- Implemented data loader which passed the unit tests.
+- Visualized data loaded from data loader in notebook, make sure once again the data is looking fine.
+- Modified U-Net Keras architecture from existing GitHub repos.
+- Wrote unit test on U-Net model for checking gradients are passed through in each layer.
+- Implemented our own DICE loss.
+- Overfit one batch of data. Failed to reach train loss = 0. (Plateaued at high number)
+- Only load the track mask instead of loading all 4 masks, still cannot reach 0 train loss.
+- Found out that we did not map image range from [0, 255] to [0, 1]. Fixed that
+- Overfitted one batch of data to train loss 0.
+- Train with all data and track mask label only. Convergence were very slow. 
+- Looked at the predictions image, all the pixels are 0.
+- Added L1 loss to regularise the training because we want to encourage sparsity. Training became much faster but both train and valid loss plateaued.
+- Looked at the predictions image again, all the pixels are 0 still.
+
+We suspected we simpy had too few training data to get the segmentation model to work.
   
 ---
 ### 8. Hackathon Results
