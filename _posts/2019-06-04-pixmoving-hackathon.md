@@ -12,7 +12,7 @@ comments: true
 ---
 ### 1. Introduction
 
-I attended a few [Donkey Car](https://www.donkeycar.com/){:target="_blank"} meetups during my stay in the US last year and noticed that cars powered by end-to-end neural network (i.e. directly output steering and throttle) weren’t doing as well as the ones that used traditional optimal control methods (such as line following, path planning, etc). No matter how hard people tried, neural network models always lost out to the carefully optimized control algorithms. Most frustratingly, most neural network cars couldn't even complete a single lap during the actual competition when the track was surrounded by audience!
+I attended several [Donkey Car](https://www.donkeycar.com/){:target="_blank"} meetups during my stay in the US last year and noticed that cars powered by end-to-end neural network (i.e. directly output steering and throttle) weren’t doing as well as the ones that used traditional optimal control methods (such as line following, path planning, etc). No matter how hard people tried, neural network models always lost out to the carefully optimized control algorithms. More frustratingly, most neural network cars couldn't even complete a single lap during the actual competition when the track was surrounded by audience!
 
 So why didn’t neural network work well and how we, as neural network and deep learning enthusiasts (oh well...), can go about improving neural network cars and even make them viable challengers to the cars powered by optimal control algorithms. In this blogpost, I will discuss some of the major drawbacks of neural network models and outline various techniques we tried to overcome such challenges.
 
@@ -144,12 +144,12 @@ To examine if our model was really focusing on the track lanes, we generated the
 ![style_transfer_v3.gif](/img/style_transfer_v3.gif){:width="300px"}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![control_v3.gif](/img/control_v3.gif){:width="300px"}
 <div style="font-size:16px;margin-top:-20px">Left: Model with style transfer, Right: Baseline model</div><br />
 
-We noticed that the style transfer model, while still overfit to the background occasionally, has a much stronger focus on the lane lines. In contrast, our baseline model almost never look at the lane lines at all! **In our opinion, style transfer can be effectively used as a data augmentation technique to improving the generalizability and robustness of the model, especially when the dataset is small or we want the model generalize to a new track**.
+We noticed that the style transfer model, while still overfit to the background occasionally, has a much stronger focus on the lane lines. In contrast, our baseline model almost never look at the lane lines at all! **In our opinion, style transfer can be effectively used as a data augmentation technique to improve the generalizability and robustness of the model, especially when the dataset is small or we want the model generalize to a new track**.
 
 ---
 ### 7. Failed attempt on Segmentation
   
-Prior to the Hackathon, we were well aware of the fragileness of using end-to-end neural network for driving. In an attempt to filter out the background noise, we tried to train a semantic segmentation model to extract the lane lines from the images. We spent hours label the lane lines and ended up putting together a dataset of around 130 images with 4 classes: left lane, right lane, middle lane, track area.
+Prior to the Hackathon, we were well aware of the fragileness of using end-to-end neural network for driving. In an attempt to filter out the background noise, we tried to train a semantic segmentation model to extract the lane lines from the images. We spent hours labelling the lane lines and ended up putting together a dataset of around 130 images with 4 classes: left lane, right lane, middle lane, track area.
 
 ![Label Box](/img/labelbox.png){:width="300px"}
 <div style="font-size:16px;margin-top:-20px">Manually label the dataset using Labelbox</div><br />
