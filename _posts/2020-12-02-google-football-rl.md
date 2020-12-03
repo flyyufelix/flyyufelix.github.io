@@ -70,8 +70,6 @@ Imitation learning, as the name suggests, simply means training a model that mim
 
 The resulting model was pretty decent. I submitted it to the leaderboard and achieved a rating of over 900. Moreover, I tested it against the "hard" agent (i.e. 11_vs_11_hard_stochastic) provided by the environment and they were pretty much on par. What was previously required hundreds of million of frames to train in RL now only required 2 days of simple supervised learning training.  
 
-My code for imitation learning can be found [here]. The code only requires a single command to run the entire pipeline, i.e. download the game episodes, perform ETL, and train the model.      
-
 #### 2.3. Back to Reinforcement Learning
 
 We are now equipped with a reasonably good imitation learning model. The next step is to use the model to initialize the weights of the RL agent and finetune it with an RL algorithm. Theoretically it could improve training efficiency since the initial model is competent enough to produce a steady stream of reward signals (i.e. scoring goals) for the RL algorithm to learn from.
@@ -174,9 +172,7 @@ Since I entered the competition relatively late I didn't get to secure any GCP c
 
 Other tools I used including [hydra](https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710) for managing hyperparameters, [Weights & Biases](http://wandb.ai/) for visualizing the rewards and logging, and docker for standardizing the dev environment. 
 
-The source code for imitation learning can be found [here](https://github.com/flyyufelix/google_research_football_kaggle/tree/main/imitation_learning).
-
-The source code for reinforcement learning training can be found [here](https://github.com/flyyufelix/google_research_football_kaggle/tree/main/rl_agent).
+The source code for imitation learning and reinforcement learning training can be found [here](https://github.com/flyyufelix/google_research_football_kaggle).
 
 If you have any questions or thoughts feel free to leave a comment below.
 
