@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Train a Reinforcement Learning Agent to play Footbal
+title: Train a Reinforcement Learning Agent to play Football
 #feature-img: "img/sample_feature_img.png"
 comments: true
 ---
@@ -174,9 +174,9 @@ Since I entered the competition relatively late I didn't get to secure any GCP c
 
 Other tools I used including [hydra](https://medium.com/pytorch/hydra-a-fresh-look-at-configuration-for-machine-learning-projects-50583186b710) for managing hyperparameters, [Weights & Biases](http://wandb.ai/) for visualizing the rewards and logging, and docker for standardizing the dev environment. 
 
-The source code for imitation learning can be found [here].
+The source code for imitation learning can be found [here](https://github.com/flyyufelix/google_research_football_kaggle/tree/main/imitation_learning).
 
-The source code for reinforcement learning training can be found [here].
+The source code for reinforcement learning training can be found [here](https://github.com/flyyufelix/google_research_football_kaggle/tree/main/rl_agent).
 
 If you have any questions or thoughts feel free to leave a comment below.
 
